@@ -5,8 +5,13 @@ public class Ex02 {
 	private static int calls = 0;
 
 	public static void main(String[] args) {
-		task(4);
-		System.out.println(calls);
+		for (int n = 1; n <= 10; n++) {
+			long start = System.currentTimeMillis();
+			task(n);
+			long end = System.currentTimeMillis();
+			System.out.println(String.format("%8d %8d %8d", n, calls, end - start));
+			calls = 0;
+		}
 	}
 
 	private static void task(int n) {
@@ -26,14 +31,29 @@ public class Ex02 {
 	}
 
 	private static void task1() {
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		calls++;
 	}
 
 	private static void task2() {
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		calls++;
 	}
 
 	private static void task3() {
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		calls++;
 	}
 
