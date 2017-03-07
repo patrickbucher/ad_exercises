@@ -4,25 +4,25 @@ import java.util.Iterator;
 
 public class LinkedListIterator<T> implements Iterator<T> {
 
-	private final DoubleLinkedList<Element<T>> list;
+    private final DoubleLinkedList<T> list;
 
-	private Element<T> current;
+    private Element<T> current;
 
-	public LinkedListIterator(DoubleLinkedList<Element<T>> linkedList) {
-		this.list = linkedList;
-		this.current = (Element<T>) list.getFirstElement();
-	}
+    public LinkedListIterator(DoubleLinkedList<T> linkedList) {
+        this.list = linkedList;
+        this.current = list.getFirstElement();
+    }
 
-	@Override
-	public boolean hasNext() {
-		return current.getNext() != null;
-	}
+    @Override
+    public boolean hasNext() {
+        return current != null;
+    }
 
-	@Override
-	public T next() {
-		Element<T> tmp = current;
-		current = current.getNext();
-		return tmp.getData();
-	}
+    @Override
+    public T next() {
+        Element<T> tmp = current;
+        current = current.getNext();
+        return tmp.getData();
+    }
 
 }

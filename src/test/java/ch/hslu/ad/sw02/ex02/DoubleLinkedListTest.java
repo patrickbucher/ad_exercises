@@ -1,5 +1,7 @@
 package ch.hslu.ad.sw02.ex02;
 
+import java.util.Iterator;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -130,5 +132,19 @@ public class DoubleLinkedListTest {
         list.removeElement(python);
         Assert.assertEquals(2, list.getSize());
         Assert.assertEquals(go, list.getFirstElement());
+    }
+    
+    @Test
+    public void testLinkedListIterator() {
+        Iterator<String> iterator = list.iterator();
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals(go.getData(), iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals(python.getData(), iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals(rust.getData(), iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals(java.getData(), iterator.next());
+        Assert.assertFalse(iterator.hasNext());
     }
 }
