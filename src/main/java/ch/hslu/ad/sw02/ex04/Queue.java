@@ -25,7 +25,7 @@ public class Queue {
             head++;
             return element;
         } else {
-            throw new IllegalStateException("the queue is full");
+            throw new IllegalStateException("the queue is empty");
         }
     }
 }
