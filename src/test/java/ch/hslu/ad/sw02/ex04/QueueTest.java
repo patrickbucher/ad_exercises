@@ -60,7 +60,7 @@ public class QueueTest {
         Assert.assertEquals("Josy", kassenschlange.dequeue());
     }
 
-    // @Test
+    @Test
     public void testTripeAllInAllOut() {
         Queue kassenschlange = new Queue();
         kassenschlange.enqueue("Uschi");
@@ -120,5 +120,20 @@ public class QueueTest {
         kassenschlange.enqueue("Therese");
         kassenschlange.dequeue();
         kassenschlange.dequeue();
+    }
+
+    @Test
+    public void regressionTest() {
+        Queue kassenschlange = new Queue();
+        for (int n = 0; n < 1024 * 1024; n++) {
+            kassenschlange.enqueue("Josy" + n);
+            kassenschlange.enqueue("Therese" + n);
+            kassenschlange.enqueue("Vreni" + n);
+            kassenschlange.enqueue("Uschi" + n);
+            kassenschlange.dequeue();
+            kassenschlange.dequeue();
+            kassenschlange.dequeue();
+            kassenschlange.dequeue();
+        }
     }
 }
