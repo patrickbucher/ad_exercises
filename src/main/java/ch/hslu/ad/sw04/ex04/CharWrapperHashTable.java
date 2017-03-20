@@ -1,17 +1,17 @@
-package ch.hslu.ad.sw04.ex01;
+package ch.hslu.ad.sw04.ex04;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class HashTable {
+public class CharWrapperHashTable {
 
-	public static final int SIZE = 12;
+	public static final int SIZE = 20000;
 
-	private Object entries[] = new Object[SIZE];
+	private CharWrapper entries[] = new CharWrapper[SIZE];
 
 	private int size = 0;
 
-	public boolean put(Object entry) {
+	public boolean put(CharWrapper entry) {
 		int index = calculateIndex(entry);
 		int collisionDomain = index;
 
@@ -37,7 +37,7 @@ public class HashTable {
 		return true;
 	}
 
-	public boolean remove(Object entry) {
+	public boolean remove(CharWrapper entry) {
 		int index = calculateIndex(entry);
 		if (entries[index] == null) {
 			return false;
@@ -47,7 +47,7 @@ public class HashTable {
 		return true;
 	}
 
-	public Object get(int hashCode) {
+	public CharWrapper get(int hashCode) {
 		int index = calculateIndex(hashCode);
 		int collisionDomain = index;
 		
@@ -78,8 +78,8 @@ public class HashTable {
 		return size == SIZE;
 	}
 	
-	public Collection<Object> getAllElements() {
-		Collection<Object> allElements = new ArrayList<>(getSize());
+	public Collection<CharWrapper> getAllElements() {
+		Collection<CharWrapper> allElements = new ArrayList<>(getSize());
 		for (int i = 0; i < SIZE; i++) {
 			if (entries[i] != null) {
 				allElements.add(entries[i]);
@@ -88,7 +88,7 @@ public class HashTable {
 		return allElements;
 	}
 
-	private int calculateIndex(Object entry) {
+	private int calculateIndex(CharWrapper entry) {
 		return entry.hashCode() % SIZE;
 	}
 
