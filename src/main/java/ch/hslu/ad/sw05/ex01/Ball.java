@@ -20,7 +20,7 @@ public class Ball extends Thread implements Runnable {
         this.r = r;
         this.color = c;
         this.area = panel;
-        this.fallSpeed = area.getRandomNumber(5, 20);
+        this.fallSpeed = area.getRandomNumber(1, 5);
     }
 
     public Color getColor() {
@@ -45,7 +45,7 @@ public class Ball extends Thread implements Runnable {
             }
             circle = new Ellipse2D.Float(x, y, r, r);
             try {
-                Thread.sleep(50);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 done = true;
             }

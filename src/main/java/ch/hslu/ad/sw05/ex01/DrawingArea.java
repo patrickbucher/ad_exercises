@@ -19,7 +19,7 @@ public class DrawingArea extends JPanel {
 
     private List<Ball> balls = new ArrayList<>();
 
-    private Dimension areaDimension = new Dimension(600, 400);
+    private Dimension areaDimension = new Dimension(650, 700);
 
     private Random rnd = new Random(System.currentTimeMillis());
 

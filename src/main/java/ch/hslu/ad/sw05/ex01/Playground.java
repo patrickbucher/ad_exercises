@@ -16,7 +16,7 @@ public class Playground extends JFrame {
     }
 
     public Playground() {
-        super("Playground");
+        super("Unterschiedlich schnell fallende Bälle unterschiedlicher Farben und Grössen");
         getRootPane().setLayout(new GridBagLayout());
         getRootPane().add(area, new GridBagConstraints());
         pack();
