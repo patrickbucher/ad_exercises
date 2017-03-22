@@ -2,6 +2,9 @@ package ch.hslu.ad.sw05.ex03;
 
 public class Transfer extends Thread implements Runnable {
 
+    // when logging is active, threads will synchronize properly
+    private final static boolean LOGGING = false;
+
     private final static int PARTIAL_AMOUNT = 1;
 
     private final BankAccount sourceAccount;
@@ -18,9 +21,11 @@ public class Transfer extends Thread implements Runnable {
     public void run() {
         while (amountDue > PARTIAL_AMOUNT) {
             sourceAccount.transfer(targetAccount, PARTIAL_AMOUNT);
-            String logMsg = String.format("transfer %d.- from %s to %s", PARTIAL_AMOUNT, sourceAccount, targetAccount);
-            System.out.println(logMsg);
             amountDue -= PARTIAL_AMOUNT;
+            if (LOGGING) {
+                String logMsg = String.format("%d.- from %s to %s", PARTIAL_AMOUNT, sourceAccount, targetAccount);
+                System.out.println(logMsg);
+            }
         }
     }
 
