@@ -17,17 +17,18 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class DrawingArea extends JPanel {
 
+    private final static int WIDTH = 650;
+    private final static int HEIGHT = 700;
+
     private List<Ball> balls = new ArrayList<>();
 
-    private Dimension areaDimension = new Dimension(650, 700);
+    private Dimension areaDimension = new Dimension(WIDTH, HEIGHT);
 
     private Random rnd = new Random(System.currentTimeMillis());
 
     public DrawingArea() {
-        setMinimumSize(areaDimension);
-        setSize(areaDimension);
-        setBackground(Color.white);
         setPreferredSize(areaDimension);
+        setBackground(Color.white);
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -59,7 +60,7 @@ public class DrawingArea extends JPanel {
         Ball ball = new Ball(x, y, radius, color, this);
         balls.add(ball);
         ball.start();
-        System.out.println("created a ball, now " + balls.size() + " balls");
+        System.out.println("added ball, now " + balls.size() + " balls");
     }
 
     public void paintComponent(Graphics g) {
@@ -73,7 +74,7 @@ public class DrawingArea extends JPanel {
                 g2d.fill(ball.getCircle());
             } else {
                 ballIterator.remove();
-                System.out.println("removed a ball, still " + balls.size() + " balls");
+                System.out.println("removed ball, now " + balls.size() + " balls");
             }
         }
     }
@@ -92,5 +93,4 @@ public class DrawingArea extends JPanel {
         int b = getRandomNumber(0, 255);
         return new Color(r, g, b);
     }
-
 }
