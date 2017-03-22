@@ -12,7 +12,7 @@ public class TransferTest {
 
     public static final int AMOUNT = 1_000;
 
-    public static final int ACCOUNTS = 3;
+    public static final int ACCOUNTS = 1000;
 
     private static final Random random = new Random(System.currentTimeMillis());
 

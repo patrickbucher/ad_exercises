@@ -3,7 +3,9 @@ package ch.hslu.ad.sw05.ex03;
 public class Transfer extends Thread implements Runnable {
 
     // when logging is active, threads will synchronize properly
-    private final static boolean LOGGING = false;
+    private static final boolean LOGGING = false;
+
+    private static final boolean WORKING_SOLUTION = true;
 
     private final static int PARTIAL_AMOUNT = 1;
 
@@ -20,7 +22,18 @@ public class Transfer extends Thread implements Runnable {
     @Override
     public void run() {
         while (amountDue > PARTIAL_AMOUNT) {
-            sourceAccount.transfer(targetAccount, PARTIAL_AMOUNT);
+
+            if (WORKING_SOLUTION) {
+                synchronized (sourceAccount) {
+                    sourceAccount.deposite(-PARTIAL_AMOUNT);
+                }
+                synchronized (targetAccount) {
+                    targetAccount.deposite(+PARTIAL_AMOUNT);
+                }
+            } else {
+                // can't possibly be synchronized
+                sourceAccount.transfer(targetAccount, PARTIAL_AMOUNT);
+            }
             amountDue -= PARTIAL_AMOUNT;
             if (LOGGING) {
                 String logMsg = String.format("%d.- from %s to %s", PARTIAL_AMOUNT, sourceAccount, targetAccount);
