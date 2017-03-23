@@ -16,7 +16,7 @@ public class FallingBalls extends JFrame {
     }
 
     public FallingBalls() {
-        super("Unterschiedlich schnell fallende Bälle unterschiedlicher Farben und Grössen");
+        super("Beschleunigt fallende Bälle unterschiedlicher Farben und Grössen");
         getRootPane().setLayout(new GridBagLayout());
         getRootPane().add(area, new GridBagConstraints());
         pack();
