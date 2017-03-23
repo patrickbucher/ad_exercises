@@ -28,7 +28,7 @@ public class DrawingArea extends JPanel {
 
     public DrawingArea() {
         setPreferredSize(areaDimension);
-        setBackground(Color.white);
+        setBackground(Color.WHITE);
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
