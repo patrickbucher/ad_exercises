@@ -32,15 +32,13 @@ public class StartBoxLatch implements Synch {
     }
 
     @Override
-    public void acquire() throws InterruptedException {
+    public synchronized void acquire() throws InterruptedException {
         if (slotsFilled < totalSlots) {
             slotsFilled++;
             if (slotsFilled == totalSlots) {
                 timeout.start();
             }
-            synchronized (this) {
-                this.wait();
-            }
+            this.wait();
         }
     }
 
