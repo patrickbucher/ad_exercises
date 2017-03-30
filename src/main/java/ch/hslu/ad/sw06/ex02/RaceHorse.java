@@ -18,7 +18,16 @@ public final class RaceHorse implements Runnable {
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-
+        runThread = Thread.currentThread();
+        LOG.info("Rennpferd " + runThread.getName() + " geht in die Box.");
+        try {
+            startSignal.acquire();
+            LOG.info("Rennpferd " + runThread.getName() + " laeuft los...");
+            Thread.sleep(random.nextInt(3000));
+        } catch (InterruptedException ex) {
+            LOG.info("Rennpferd " + runThread.getName() + " gibt auf.");
+            return;
+        }
+        LOG.info("Rennpferd " + runThread.getName() + " ist im Ziel.");
     }
 }
