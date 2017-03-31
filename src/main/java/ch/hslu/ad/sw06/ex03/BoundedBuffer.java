@@ -1,70 +1,55 @@
 package ch.hslu.ad.sw06.ex03;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class BoundedBuffer<T> {
-
-    private final Deque<T> buffer;
 
     private final int capacity;
 
-    private final Object readLock = new Object();
-    private final Object writeLock = new Object();
+    // TODO replace with buffer
+    private T value;
+    
+    // TODO replace with size counter
+    private boolean valueSet;
 
     public BoundedBuffer(int capacity) {
-        buffer = new ArrayDeque<>(capacity);
         this.capacity = capacity;
     }
 
-    public T get() {
-        synchronized (readLock) {
-            if (empty()) {
-                try {
-                    readLock.wait();
-                } catch (InterruptedException e) {
-                    System.err.println("interrupted: " + e.getMessage());
-                }
+    public synchronized T get() {
+        while (!valueSet) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println("interrupted: " + e.getMessage());
             }
-            boolean wasFull = full();
-            T element = buffer.pop();
-            if (wasFull) {
-                synchronized (writeLock) {
-                    writeLock.notifyAll();
-                }
-            }
-            return element;
         }
+        T value = this.value;
+        this.valueSet = false;
+        this.notifyAll();
+        return value;
     }
 
-    public void put(T element) {
-        synchronized (writeLock) {
-            if (full()) {
-                try {
-                    writeLock.wait();
-                } catch (InterruptedException e) {
-                    System.err.println("interrupted: " + e.getMessage());
-                }
-            }
-            boolean wasEmpty = empty();
-            buffer.addLast(element);
-            if (wasEmpty) {
-                synchronized (readLock) {
-                    readLock.notifyAll();
-                }
+    public synchronized void put(T value) {
+        while (valueSet) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println("interrupted: " + e.getMessage());
             }
         }
+        this.valueSet = true;
+        this.value = value;
+        this.notifyAll();
     }
 
     public boolean empty() {
-        return buffer.size() == 0;
+        return !valueSet;
     }
 
     public boolean full() {
-        return buffer.size() == capacity;
+        return valueSet;
     }
 
     public int size() {
-        return buffer.size();
+        return 1;
     }
 }
