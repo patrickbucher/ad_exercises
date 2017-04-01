@@ -1,13 +1,16 @@
 package ch.hslu.ad.sw06.ex03;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 public class BoundedBufferTest {
 
-    static final int BUFFER_CAPACITY = 1000000;
+    static final int BUFFER_CAPACITY = 100;
 
-    // @Test
+    @Test
     public void testSync() {
         BoundedBuffer<String> buf = new BoundedBuffer<>(BUFFER_CAPACITY);
         Assert.assertTrue(buf.empty());
@@ -92,6 +95,54 @@ public class BoundedBufferTest {
             Assert.assertTrue(buf.empty());
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testMProducersNConsumers() {
+        BoundedBuffer<String> buf = new BoundedBuffer<>(BUFFER_CAPACITY);
+        final int nProducers = 10;
+        final int nConsumers = 10;
+        List<Thread> producers = new ArrayList<>(nProducers);
+        List<Thread> consumers = new ArrayList<>(nConsumers);
+        Runnable producerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                for (int n = 0; n < BUFFER_CAPACITY / nProducers; n++) {
+                    buf.put("String" + n);
+                }
+            }
+        };
+        Runnable consumerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                for (int n = 0; n < BUFFER_CAPACITY / nConsumers; n++) {
+                    Assert.assertNotEquals(0, buf.get().length());
+                }
+            }
+        };
+        for (int n = 0; n < nProducers; n++) {
+            producers.add(new Thread(producerRunnable));
+        }
+        for (int n = 0; n < nConsumers; n++) {
+            consumers.add(new Thread(consumerRunnable));
+        }
+        for (Thread c : consumers) {
+            c.start();
+        }
+        for (Thread p : producers) {
+            p.start();
+        }
+        try {
+            for (Thread p : producers) {
+                p.join();
+            }
+            for (Thread c : consumers) {
+                c.join();
+            }
+            Assert.assertTrue(buf.empty());
+        } catch (InterruptedException iEx) {
+            System.err.println(iEx.getMessage());
         }
     }
 
