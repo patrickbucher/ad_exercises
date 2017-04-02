@@ -5,8 +5,8 @@ import org.junit.Test;
 
 public class ThreadPriorityTest {
 
-    private static final int BUFFER_CAPACITY = 1_000;
-    private static final int ITEMS = 1_000_000;
+    private static final int BUFFER_CAPACITY = 1024;
+    private static final int ITEMS = 1024 * 1024;
 
     @Test
     public void highestVsLowestPriority() {
