@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class BoundedBufferTest {
 
-    static final int BUFFER_CAPACITY = 100;
+    static final int BUFFER_CAPACITY = 100000;
 
     @Test
     public void testSync() {
