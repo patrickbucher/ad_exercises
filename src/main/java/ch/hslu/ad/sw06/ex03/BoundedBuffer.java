@@ -15,7 +15,6 @@ public class BoundedBuffer<T> {
         this.data = new Object[capacity];
     }
 
-    @SuppressWarnings("unchecked")
     public synchronized T get() {
         while (empty()) {
             System.out.println("buffer is empty, get() has to wait");
@@ -25,16 +24,19 @@ public class BoundedBuffer<T> {
                 System.err.println("interrupted: " + e.getMessage());
             }
         }
-        boolean wasFull = full();
-        int index = read % capacity;
-        T element = (T) data[index];
-        read = index + 1;
-        size--;
-        if (wasFull) {
-            System.out.println("buffer is not full any longer, put() can continue");
-            this.notifyAll();
+        return getElement();
+    }
+
+    public synchronized T get(long millis) {
+        while (empty()) {
+            System.out.println("buffer is empty, get(int millis) has to wait");
+            try {
+                this.wait(millis);
+            } catch (InterruptedException e) {
+                System.err.println("interrupted: " + e.getMessage());
+            }
         }
-        return element;
+        return getElement();
     }
 
     public synchronized void put(T value) {
@@ -67,5 +69,19 @@ public class BoundedBuffer<T> {
 
     public int size() {
         return size;
+    }
+
+    @SuppressWarnings("unchecked")
+    private synchronized T getElement() {
+        boolean wasFull = full();
+        int index = read % capacity;
+        T element = (T) data[index];
+        read = index + 1;
+        size--;
+        if (wasFull) {
+            System.out.println("buffer is not full any longer, put() can continue");
+            this.notifyAll();
+        }
+        return element;
     }
 }

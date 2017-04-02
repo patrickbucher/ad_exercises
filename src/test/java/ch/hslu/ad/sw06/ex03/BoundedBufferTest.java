@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class BoundedBufferTest {
 
-    static final int BUFFER_CAPACITY = 100000;
+    static final int BUFFER_CAPACITY = 1024;
 
     @Test
     public void testSync() {
@@ -146,4 +146,36 @@ public class BoundedBufferTest {
         }
     }
 
+    @Test
+    public void testTimedGet() {
+        BoundedBuffer<String> buf = new BoundedBuffer<>(BUFFER_CAPACITY);
+
+        final int items = BUFFER_CAPACITY * 1024;
+        Producer producer = new Producer(items, buf);
+        Consumer consumer1 = new Consumer(buf, 100);
+        Consumer consumer2 = new Consumer(buf, 100);
+        Consumer consumer3 = new Consumer(buf, 100);
+
+        Thread p = new Thread(producer);
+        Thread c1 = new Thread(consumer1);
+        Thread c2 = new Thread(consumer2);
+        Thread c3 = new Thread(consumer3);
+
+        c1.start();
+        c2.start();
+        c3.start();
+        p.start();
+
+        try {
+            p.join();
+            consumer1.requestStop();
+            consumer2.requestStop();
+            consumer3.requestStop();
+            c1.join();
+            c2.join();
+            c3.join();
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }

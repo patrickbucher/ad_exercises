@@ -7,10 +7,17 @@ public class Consumer implements Runnable, Thread.UncaughtExceptionHandler {
     private final BoundedBuffer<String> buffer;
     private int consumed = 0;
 
+    private long timeout = 0;
+
     private volatile boolean done = false;
 
     public Consumer(BoundedBuffer<String> buffer) {
         this.buffer = buffer;
+    }
+
+    public Consumer(BoundedBuffer<String> buffer, long timeout) {
+        this(buffer);
+        this.timeout = timeout;
     }
 
     @Override
@@ -18,7 +25,12 @@ public class Consumer implements Runnable, Thread.UncaughtExceptionHandler {
         while (!done) {
             synchronized (buffer) {
                 if (!buffer.empty()) {
-                    String str = buffer.get();
+                    String str;
+                    if (timeout == 0) {
+                        str = buffer.get();
+                    } else {
+                        str = buffer.get(timeout);
+                    }
                     Assert.assertNotNull(str);
                     consumed++;
                 }
