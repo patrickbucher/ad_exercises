@@ -40,5 +40,4 @@ public class SumScatterGatherTest {
         int nThreads = sumTask.getNumbers().length;
         Assert.assertEquals(sum, new SumOperator(sumTask, nThreads).calculateSum());
     }
-
 }

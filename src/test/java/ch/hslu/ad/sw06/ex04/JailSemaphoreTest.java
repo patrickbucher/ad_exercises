@@ -53,12 +53,13 @@ public class JailSemaphoreTest {
             System.out.println(log);
             try {
                 while (jailSemaphore.getFree() < members) {
-                    log = "The jail is full, the members of the " + name + " family have to wait a while.";
+                    log = "The jail has not enough cells for the members of the " + name
+                            + " family, so they have to wait a while.";
                     System.out.println(log);
                     // heuristic: wait for the average sentence's duration
                     Thread.sleep((minSentence + maxSentence) / 2);
                 }
-                synchronized (this) {
+                synchronized (jailSemaphore) {
                     log = "The " + members + " members of the " + name + " family enter the jail now";
                     System.out.println(log);
                     int free = jailSemaphore.acquire(members);
@@ -71,7 +72,7 @@ public class JailSemaphoreTest {
             } catch (InterruptedException e) {
                 System.err.println(name + ": " + e.getMessage());
             }
-            synchronized (this) {
+            synchronized (jailSemaphore) {
                 log = "The " + members + " members of the " + name + " family can leave the jail";
                 System.out.println(log);
                 int free = jailSemaphore.release(members);
