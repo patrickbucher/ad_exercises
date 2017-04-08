@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,8 @@ public class BigPrimesAsync {
     private static final Logger LOG = LogManager.getLogger();
 
     public static void main(String args[]) {
-        findPrimesAndWriteToFile();
+        // findPrimesAndWriteToFile();
+        findPrimesAndLog();
     }
 
     public static void findPrimesAndWriteToFile() {
@@ -94,15 +96,14 @@ public class BigPrimesAsync {
      */
     public static List<BigInteger> findBigPrimes(final int nPrimes) throws Exception {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
-        List<Future<BigInteger>> futures = new ArrayList<>(nPrimes);
+        CompletionService<BigInteger> completionService = new ExecutorCompletionService<>(executorService);
         List<BigInteger> primes = new ArrayList<>(nPrimes);
         for (int n = 0; n < nPrimes; n++) {
-            Future<BigInteger> future = executorService.submit(new BigPrimeFinder());
-            futures.add(future);
+            completionService.submit(new BigPrimeFinder());
         }
-        for (Future<BigInteger> future : futures) {
+        for (int n = 0; n < nPrimes; n++) {
             try {
-                primes.add(future.get());
+                primes.add(completionService.take().get());
             } catch (InterruptedException | ExecutionException e) {
                 throw new Exception(e);
             }
