@@ -11,11 +11,18 @@ public class SearchLeastOccupiedParkingStrategy implements ParkingStrategy {
     public SearchLeastOccupiedParkingStrategy(List<CarPark> carParks) {
         this.carParks = carParks;
     }
-    
-    
+
     @Override
     public CarPark findCarPark() {
-        return null;
+        int mostFreeSpots = 0;
+        CarPark leastOccupiedCarPark = null;
+        for (CarPark carPark : carParks) {
+            if (carPark.freeParkingFields() > mostFreeSpots) {
+                mostFreeSpots = carPark.freeParkingFields();
+                leastOccupiedCarPark = carPark;
+            }
+        }
+        return leastOccupiedCarPark;
     }
 
 }

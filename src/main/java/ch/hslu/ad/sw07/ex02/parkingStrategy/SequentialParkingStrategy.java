@@ -11,9 +11,14 @@ public class SequentialParkingStrategy implements ParkingStrategy {
     public SequentialParkingStrategy(List<CarPark> carParks) {
         this.carParks = carParks;
     }
-    
+
     @Override
     public CarPark findCarPark() {
+        for (CarPark carPark : carParks) {
+            if (carPark.freeParkingFields() > 0) {
+                return carPark;
+            }
+        }
         return null;
     }
 

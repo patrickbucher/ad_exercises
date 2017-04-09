@@ -14,7 +14,7 @@ public class ClosestParkingStrategy implements ParkingStrategy {
 
     @Override
     public CarPark findCarPark() {
-        return null;
+        return carParks.get(0);
     }
 
 }
