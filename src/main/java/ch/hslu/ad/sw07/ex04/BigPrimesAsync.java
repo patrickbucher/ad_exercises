@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 public class BigPrimesAsync {
 
-    private static final int N_PRIMES = 10;
+    private static final int N_PRIMES = 100;
     private static final Logger LOG = LogManager.getLogger();
 
     public static void main(String args[]) {
