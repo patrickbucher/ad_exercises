@@ -11,11 +11,7 @@ public class Car implements Callable<Boolean> {
     private final static int MIN_PARKING_DURATION = 1 * 60;
     private final static int MAX_PARKING_DURATION = 8 * 60;
 
-    private final static int MIN_WAIT_HOME_DURATION = 0;
-    private final static int MAX_WAIT_HOME_DURATION = 2 * 60;
-
     private final int parkingDuration;
-    private final int waitHomeDuration;
     private final int waitTolerance;
 
     private final String licensePlate;
@@ -26,7 +22,6 @@ public class Car implements Callable<Boolean> {
         this.parkingStrategy = parkingStrategy;
         this.waitTolerance = waitTolerance;
         parkingDuration = ThreadLocalRandom.current().nextInt(MIN_PARKING_DURATION, MAX_PARKING_DURATION + 1);
-        waitHomeDuration = ThreadLocalRandom.current().nextInt(MIN_WAIT_HOME_DURATION, MAX_WAIT_HOME_DURATION + 1);
         licensePlate = buildLicensePlate();
     }
 
@@ -47,26 +42,7 @@ public class Car implements Callable<Boolean> {
 
     @Override
     public Boolean call() throws Exception {
-        Thread.sleep(waitHomeDuration);
-        System.out.println("Car " + toString() + " enters the town");
-
-        // TODO move this whole shebang into the ParkingStrategy
-        CarPark carPark = parkingStrategy.findCarPark();
-        System.out.println("Car " + toString() + " did find the car park " + carPark);
-        if (carPark == null) {
-            System.out.println(licensePlate + " didn't find any spot and drives away");
-            return false;
-        }
-        carPark.enter(this);
-        try {
-            Thread.sleep(parkingDuration);
-        } catch (InterruptedException e) {
-            System.err.println(e);
-        }
-        // ---
-
-        carPark.leave(this);
-        return true;
+        return parkingStrategy.park(this);
     }
 
     @Override

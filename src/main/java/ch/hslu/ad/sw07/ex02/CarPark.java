@@ -15,19 +15,19 @@ public class CarPark {
     public synchronized void enter(Car car) {
         if (occupied < capacity) {
             occupied++;
-            System.out.println(car + " entered the parking lot #" + number);
-        } else {
-            try {
-                wait(car.getWaitTolerance());
-            } catch (InterruptedException iEx) {
-                System.out.println(car + " waited for too long for parking lot #" + number + " and drives away");
+            if (ParkingSimulation.LOGGING) {
+                System.out.println(car + " entered " + this);
             }
+        } else {
+            throw new IllegalStateException("Can't enter car park, it's full.");
         }
     }
 
     public synchronized void leave(Car car) {
         occupied--;
-        System.out.println(car + " left the parking lot #" + number);
+        if (ParkingSimulation.LOGGING) {
+            System.out.println(car + " left " + this);
+        }
     }
 
     public synchronized int freeParkingFields() {
