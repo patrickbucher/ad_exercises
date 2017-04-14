@@ -1,6 +1,5 @@
 package ch.hslu.ad.sw08;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class SimpleSorting {
@@ -28,11 +27,10 @@ public class SimpleSorting {
     @SuppressWarnings("unchecked")
     public static <T> void selectionSort(Comparable<T> items[]) {
         for (int sortedTo = 0; sortedTo < items.length; sortedTo++) {
-            // FIXME
-            Comparable<T> smallest = null;
+            Comparable<T> smallest = items[sortedTo];
             int smallestIndex = sortedTo;
             for (int i = sortedTo; i < items.length; i++) {
-                if (smallest == null || items[i].compareTo((T)smallest) < 0) {
+                if (items[i].compareTo((T) smallest) < 0) {
                     smallest = items[i];
                     smallestIndex = i;
                 }
@@ -57,13 +55,18 @@ public class SimpleSorting {
     }
 
     private static <T> void swap(T items[], int i, int j) {
-        T tmp = items[i];
+        T tmp = items[j];
         items[j] = items[i];
         items[i] = tmp;
     }
 
     @SuppressWarnings("unused")
-    private static void output(Integer numbers[]) {
-        System.out.println(Arrays.asList(numbers));
+    private static void output(Object items[]) {
+        StringBuilder str = new StringBuilder();
+        for (Object item : items) {
+            str.append(item.toString());
+            str.append(' ');
+        }
+        System.out.println(str.toString().trim());
     }
 }

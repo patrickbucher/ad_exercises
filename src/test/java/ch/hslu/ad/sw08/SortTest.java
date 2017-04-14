@@ -14,7 +14,7 @@ public class SortTest {
 
     @Before
     public void initNumbers() {
-        numbers = generateRandomIntegerArray(1_000, 1, 100);
+        numbers = generateRandomIntegerArray(30_000, 1, 100);
         names = new String[] { "Hans", "Sepp", "Schorsch", "Theo", "Ruedi", "Josy", "Heini", "Miigu", "Therese",
                 "Bertha", "Uschi", "Trudy", "Meinrad", "Miigi", "Chluuri", "Brige" };
     }
@@ -37,6 +37,8 @@ public class SortTest {
     public void testSelectionSort() {
         SimpleSorting.selectionSort(numbers);
         Assert.assertTrue(SimpleSorting.isSorted(Arrays.asList(numbers), true));
+        SimpleSorting.selectionSort(names);
+        Assert.assertTrue(SimpleSorting.isSorted(Arrays.asList(names), true));
     }
 
     @Test
