@@ -31,6 +31,8 @@ public class SortTest {
     public void testInsertionSort() {
         SimpleSorting.insertionSort(numbers);
         Assert.assertTrue(SimpleSorting.isSorted(Arrays.asList(numbers), true));
+        SimpleSorting.insertionSort(names);
+        Assert.assertTrue(SimpleSorting.isSorted(Arrays.asList(names), true));
     }
 
     @Test
@@ -39,21 +41,6 @@ public class SortTest {
         Assert.assertTrue(SimpleSorting.isSorted(Arrays.asList(numbers), true));
         SimpleSorting.selectionSort(names);
         Assert.assertTrue(SimpleSorting.isSorted(Arrays.asList(names), true));
-    }
-
-    @Test
-    public void testIsSorted() {
-        // List<Integer> integers = Arrays.asList(1, 1, 2, 3, 3, 4, 5, 5);
-        // Assert.assertTrue(SimpleSorting.isSorted(integers, true));
-        //
-        // integers = Arrays.asList(5, 5, 4, 3, 2, 1, 1);
-        // Assert.assertTrue(SimpleSorting.isSorted(integers, false));
-        //
-        // integers = Arrays.asList(Integer.MIN_VALUE, 0, Integer.MAX_VALUE);
-        // Assert.assertTrue(SimpleSorting.isSorted(integers, true));
-        //
-        // integers = Arrays.asList(1, 2, 3, 4, 6, 5, 7, 8, 9);
-        // Assert.assertFalse(SimpleSorting.isSorted(integers, true));
     }
 
     public Integer[] generateRandomIntegerArray(int size, int min, int max) {
