@@ -1,7 +1,5 @@
 package ch.hslu.ad.sw08;
 
-import java.util.List;
-
 public class SimpleSorting {
 
     @SuppressWarnings("unchecked")
@@ -23,6 +21,15 @@ public class SimpleSorting {
             }
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    public static <T> void insertionSort(Comparable<T> data[], int from, int to) {
+        for (int s = from + 1; s <= to; s++) {
+            for (int i = s; i > 0 && data[i].compareTo((T) data[i - 1]) < 0; i--) {
+                swap(data, i, i - 1);
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     public static <T> void selectionSort(Comparable<T> data[]) {
@@ -37,21 +44,6 @@ public class SimpleSorting {
             }
             swap(data, s, smallestIndex);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> boolean isSorted(List<Comparable<T>> items, boolean asc) {
-        for (int n = 0; n < items.size() - 1; n++) {
-            Comparable<T> current = items.get(n);
-            Comparable<T> next = items.get(n + 1);
-            int cmp = current.compareTo((T) next);
-            if (asc && cmp > 0) {
-                return false;
-            } else if (!asc && cmp < 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private static <T> void swap(T items[], int i, int j) {
