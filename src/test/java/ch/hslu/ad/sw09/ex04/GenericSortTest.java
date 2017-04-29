@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw09.generic;
+package ch.hslu.ad.sw09.ex04;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.hslu.ad.div.sorting.SortingUtils;
+import ch.hslu.ad.sw09.generic.GenericSort;
 
 public class GenericSortTest {
 

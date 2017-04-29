@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw09.generic;
+package ch.hslu.ad.sw09.ex04;
 
 import java.util.ArrayList;
 import java.util.List;

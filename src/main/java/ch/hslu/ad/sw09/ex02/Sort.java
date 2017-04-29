@@ -1,20 +1,8 @@
 package ch.hslu.ad.sw09.ex02;
 
 import ch.hslu.ad.sw08.SimpleSorting;
-import ch.hslu.ad.sw09.ex04.FixedSizeHeap;
-import ch.hslu.ad.sw09.ex04.IntegerHeap;
 
 public class Sort {
-
-    public static void heapSort(int[] array) {
-        IntegerHeap heap = new FixedSizeHeap(array.length);
-        for (int i = 0; i < array.length; i++) {
-            heap.insert(array[i]);
-        }
-        for (int i = 0; i < array.length; i++) {
-            array[i] = heap.getMax();
-        }
-    }
 
     public static void quickSort(Character[] data) {
         quickSort(data, 0, data.length - 1);

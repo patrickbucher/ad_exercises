@@ -1,5 +1,8 @@
 package ch.hslu.ad.sw09.generic;
 
+import ch.hslu.ad.sw09.ex04.GenericHeap;
+import ch.hslu.ad.sw09.ex04.Heap;
+
 public class GenericSort {
 
     public static <T extends Comparable<T>> void heapSort(T items[]) {
