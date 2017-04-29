@@ -51,15 +51,15 @@ public class FixedSizeHeap implements IntegerHeap {
 
     private void sink() {
         boolean sunk = false;
-        int l = 1, c = 0, r = 2;
+        int l = 1, f = 0, r = 2;
         while (!sunk) {
-            if (heap[c] < heap[l] || heap[c] < heap[r]) {
+            if (heap[f] < heap[l] || heap[f] < heap[r]) {
                 int biggerChildIndex = heap[l] > heap[r] ? l : r;
-                swap(c, biggerChildIndex);
-                c = biggerChildIndex;
-                l = (2 * c) + 1;
-                r = 2 * (c + 1);
-                if (l > size - 1 && r > size - 1) {
+                swap(f, biggerChildIndex);
+                f = biggerChildIndex;
+                l = (2 * f) + 1;
+                r = 2 * (f + 1);
+                if (l >= size || r >= size) {
                     sunk = true;
                 }
             } else {
