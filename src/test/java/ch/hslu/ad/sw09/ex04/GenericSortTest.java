@@ -3,6 +3,7 @@ package ch.hslu.ad.sw09.ex04;
 import java.util.Arrays;
 import java.util.Random;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import ch.hslu.ad.sw09.generic.GenericSort;
 
 public class GenericSortTest {
 
-    private static final int TEST_SIZE = 100;
+    private static final int TEST_SIZE = 100_000;
     private static final int STRING_LENGTH = 30;
 
     private Integer integers[] = new Integer[TEST_SIZE];
@@ -31,37 +32,45 @@ public class GenericSortTest {
     @Test
     public void testIntegerHeapSort() {
         GenericSort.heapSort(integers);
-        SortingUtils.isSorted(Arrays.asList(integers), true);
+        Assert.assertTrue(SortingUtils.isSorted(Arrays.asList(integers), true));
     }
 
     @Test
     public void testDoubleHeapSort() {
         GenericSort.heapSort(doubles);
-        SortingUtils.isSorted(Arrays.asList(doubles), true);
+        Assert.assertTrue(SortingUtils.isSorted(Arrays.asList(doubles), true));
     }
 
     @Test
     public void testStringHeapSort() {
         GenericSort.heapSort(strings);
-        SortingUtils.isSorted(Arrays.asList(strings), true);
+        Assert.assertTrue(SortingUtils.isSorted(Arrays.asList(strings), true));
     }
 
     @Test
     public void testIntegerQuickSort() {
         GenericSort.quickSort(integers);
-        SortingUtils.isSorted(Arrays.asList(integers), true);
+        Assert.assertTrue(SortingUtils.isSorted(Arrays.asList(integers), true));
     }
 
     @Test
     public void testDoubleQuickSort() {
         GenericSort.quickSort(doubles);
-        SortingUtils.isSorted(Arrays.asList(doubles), true);
+        Assert.assertTrue(SortingUtils.isSorted(Arrays.asList(doubles), true));
     }
 
     @Test
     public void testStringQuickSort() {
         GenericSort.quickSort(strings);
-        SortingUtils.isSorted(Arrays.asList(strings), true);
+        Assert.assertTrue(SortingUtils.isSorted(Arrays.asList(strings), true));
+    }
+
+    @Test
+    public void testMedianOfThree() {
+        Assert.assertEquals(1, GenericSort.medianOfThree(new Integer[] { 10, 20, 30 }, 0, 2));
+        Assert.assertEquals(2, GenericSort.medianOfThree(new Integer[] { 10, 20, 30, 40, 50 }, 0, 4));
+        Assert.assertEquals(3, GenericSort.medianOfThree(new Integer[] { 10, 20, 30, 40, 50, 60, 70 }, 0, 6));
+        Assert.assertEquals(3, GenericSort.medianOfThree(new Integer[] { 10, 20, 30, 40, 50, 60, 70 }, 2, 4));
     }
 
     private String randomString(Random random) {

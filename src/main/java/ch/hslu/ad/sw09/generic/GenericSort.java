@@ -51,25 +51,29 @@ public class GenericSort {
         quickSortMedianOfThree(data, 0, data.length - 1);
     }
 
+    public static <T extends Comparable<T>> int medianOfThree(T items[], int left, int right) {
+        int middle = left + ((right - left) / 2);
+        T l = items[left];
+        T m = items[middle];
+        T r = items[right];
+
+        if (l.compareTo(r) > 0 && l.compareTo(m) < 0 || l.compareTo(r) < 0 && l.compareTo(m) > 0) {
+            return left;
+        } else if (m.compareTo(r) > 0 && m.compareTo(l) < 0 || m.compareTo(r) < 0 && m.compareTo(l) > 0) {
+            return middle;
+        } else {
+            return right;
+        }
+    }
+
     public static <T extends Comparable<T>> void quickSortMedianOfThree(T[] data, int left, int right) {
         if (right - left == 0) {
             return;
         }
         int up = left;
         int down = right - 1;
-        int middle = left + ((right - left) / 2);
-        T l = data[left];
-        T m = data[middle];
-        T r = data[right];
-        T t = r;
-        int tIndex = right;
-        if (l.compareTo(r) > 0 && l.compareTo(m) > 0) {
-            t = l;
-            tIndex = left;
-        } else if (r.compareTo(l) > 0 && r.compareTo(m) > 0) {
-            t = m;
-            tIndex = middle;
-        }
+        int tIndex = medianOfThree(data, left, right);
+        T t = data[tIndex];
         swap(data, tIndex, right);
         do {
             while (data[up].compareTo(t) < 0) {
