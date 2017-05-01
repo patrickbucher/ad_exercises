@@ -12,7 +12,7 @@ public class SortTest {
 
     @Test
     public void testQuickSort() {
-        final int n = 200_000;
+        final int n = 1_000_000;
         Character data[] = SortingUtils.generateRandomCharArray(n, 'A', 'Z');
         Sort.quickSort(data);
         boolean sorted = SortingUtils.isSorted(Arrays.asList(data), true);

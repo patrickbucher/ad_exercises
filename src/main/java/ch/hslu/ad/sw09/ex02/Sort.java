@@ -19,11 +19,10 @@ public class Sort {
             while (data[down] >= t && down > up) {
                 down--;
             }
-            if (up >= down) {
-                break;
+            if (up < down) {
+                swap(data, up, down);
             }
-            swap(data, up, down);
-        } while (true);
+        } while (up < down);
         swap(data, up, right);
         if (left < up - 1) {
             quickSort(data, left, up - 1);
