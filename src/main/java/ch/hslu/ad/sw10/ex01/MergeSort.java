@@ -4,9 +4,9 @@ import java.util.concurrent.ForkJoinPool;
 
 public class MergeSort {
 
-    public static void mergeSort(int array[]) {
+    public static void mergeSort(int array[], int threshold) {
         ForkJoinPool pool = new ForkJoinPool();
-        SortTask task = new SortTask(array);
+        MergeSortTask task = new MergeSortTask(array, threshold);
         pool.invoke(task);
     }
 }

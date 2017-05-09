@@ -4,33 +4,34 @@ import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
 
 @SuppressWarnings("serial")
-public class SortTask extends RecursiveAction {
-
-    private static final int THRESHOLD = 25;
+public class MergeSortTask extends RecursiveAction {
 
     private final int array[];
     private final int min;
     private final int length;
+    private final int threshold;
 
-    public SortTask(int array[]) {
+    public MergeSortTask(int array[], int threshold) {
         this.array = array;
         this.min = 0;
         this.length = array.length;
+        this.threshold = threshold;
     }
 
-    private SortTask(int array[], int min, int length) {
+    private MergeSortTask(int array[], int min, int length, int threshold) {
         this.array = array;
         this.min = min;
         this.length = length;
+        this.threshold = threshold;
     }
 
     @Override
     protected void compute() {
-        if (length - min + 1 <= THRESHOLD) {
-            Arrays.sort(array, min, length);
+        if (length - min + 1 <= threshold) {
+            PartialInsertionSort.sortPartially(array, min, length);
         } else {
             int mid = min + (length - min) / 2;
-            invokeAll(new SortTask(array, min, mid), new SortTask(array, mid, length));
+            invokeAll(new MergeSortTask(array, min, mid, threshold), new MergeSortTask(array, mid, length, threshold));
             merge(min, mid, length);
         }
     }
