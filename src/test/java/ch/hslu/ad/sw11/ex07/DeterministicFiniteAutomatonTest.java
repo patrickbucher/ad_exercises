@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw11;
+package ch.hslu.ad.sw11.ex07;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,8 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import ch.hslu.ad.sw11.ex07.DeterministicFiniteAutomaton;
 
 public class DeterministicFiniteAutomatonTest {
 

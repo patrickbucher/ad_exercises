@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw11;
+package ch.hslu.ad.sw11.ex07;
 
 public class DeterministicFiniteAutomaton {
 
