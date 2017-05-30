@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hslu.ad.sw13.RailwayNet;
+import ch.hslu.ad.sw13.RailwayNetTestUtils;
 import nl.jqno.equalsverifier.internal.prefabvalues.Tuple;
 
 public class RailwayNetTest {
@@ -17,36 +19,10 @@ public class RailwayNetTest {
     private int connectionCount;
 
     @Before
-    public void createRailwayNet() {
-        String[] stations = { "Olten", "Zofingen", "Aarau", "Brugg", "Lenzburg", "Wohlen", "Dietikon", "Luzern",
-                "Rotkreuz", "Zürich", "Zug", "Arth-Goldau", "Pfäffikon" };
-        this.net = new RailwayNet(stations);
-        net.addConnection("Olten", "Zürich", 36);
-        net.addConnection("Olten", "Aarau", 13);
-        net.addConnection("Olten", "Zofingen", 7);
-        net.addConnection("Zofingen", "Lenzburg", 34);
-        net.addConnection("Zofingen", "Luzern", 35);
-        net.addConnection("Aarau", "Brugg", 13);
-        net.addConnection("Aarau", "Lenzburg", 8);
-        net.addConnection("Brugg", "Lenzburg", 16);
-        net.addConnection("Brugg", "Dietikon", 16);
-        net.addConnection("Lenzburg", "Luzern", 80);
-        net.addConnection("Lenzburg", "Wohlen", 9);
-        net.addConnection("Lenzburg", "Zürich", 19);
-        net.addConnection("Lenzburg", "Dietikon", 19);
-        net.addConnection("Wohlen", "Dietikon", 30);
-        net.addConnection("Wohlen", "Rotkreuz", 23);
-        net.addConnection("Dietikon", "Zürich", 12);
-        net.addConnection("Luzern", "Rotkreuz", 16);
-        net.addConnection("Luzern", "Arth-Goldau", 30);
-        net.addConnection("Rotkreuz", "Zug", 12);
-        net.addConnection("Rotkreuz", "Arth-Goldau", 15);
-        net.addConnection("Zürich", "Pfäffikon", 30);
-        net.addConnection("Zürich", "Zug", 25);
-        net.addConnection("Zug", "Arth-Goldau", 20);
-        net.addConnection("Arth-Goldau", "Pfäffikon", 39);
-        this.stationCount = stations.length;
-        this.connectionCount = 24;
+    public void init() {
+        net = RailwayNetTestUtils.createAdjacencyMatrixRailwayNet();
+        stationCount = RailwayNetTestUtils.getStationCount();
+        connectionCount = RailwayNetTestUtils.getConnectionCount();
     }
 
     @Test
