@@ -12,7 +12,7 @@ import ch.hslu.ad.sw13.RailwayNet;
 import ch.hslu.ad.sw13.RailwayNetTestUtils;
 import nl.jqno.equalsverifier.internal.prefabvalues.Tuple;
 
-public class RailwayNetTest {
+public class AdjacencyMatrixRailwayNetTest {
 
     private RailwayNet net;
     private int stationCount;
